@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GEW Sri Lanka · Campaign Studio</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#060a14;--card:#0e1525;--line:#1c2742;--tx:#eef2ff;--mut:#8d98b8;--blue:#2f8cff;--gold:#f2b84b;--ok:#2ecf8f;--glass:rgba(14,21,37,.78)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f5fb;--card:#fff;--line:#dce3f2;--tx:#0b1226;--mut:#5b6685;--glass:rgba(255,255,255,.85)}}
+:root[data-theme="dark"]{--bg:#060a14}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.4;overflow-x:hidden}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:0;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+.o1{width:340px;height:340px;background:var(--blue);top:-80px;left:-80px}.o2{width:300px;height:300px;background:var(--gold);bottom:-60px;right:-60px;animation-delay:-6s}.o3{width:220px;height:220px;background:#b06cff;top:45%;left:55%;animation-delay:-11s;opacity:.2}
+@keyframes drift{to{transform:translate(70px,50px) scale(1.25)}}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:16px}
+.hero{border:1px solid var(--line);border-radius:24px;padding:24px;background:var(--glass);backdrop-filter:blur(10px);position:relative;overflow:hidden;animation:rise .8s both}
+.hero:before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent,rgba(47,140,255,.25),transparent 30%,rgba(242,184,75,.22),transparent 60%);animation:spin 14s linear infinite}
+.hero>*{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero small{color:var(--gold);letter-spacing:.2em;font-weight:800;font-size:11px}
+h1{margin:6px 0 4px;font-size:clamp(28px,6vw,40px);line-height:1.05;background:linear-gradient(90deg,var(--tx),var(--blue),var(--gold),var(--tx));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.hero p{margin:0;color:var(--mut);font-size:14px;max-width:520px}
+.hrow{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.ring{width:96px;height:96px;flex:none}.ring text{fill:var(--tx);font-weight:800;font-size:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:1;min-width:240px}
+.stat{background:rgba(127,140,180,.12);border-radius:14px;padding:10px;text-align:center;transition:transform .25s}
+.stat:hover{transform:translateY(-4px) scale(1.04)}
+.stat b{display:block;font-size:22px}.stat span{font-size:11px;color:var(--mut)}
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.ev{border-radius:16px;padding:12px;border:1px solid var(--line);background:var(--glass);font-size:12px;color:var(--mut);animation:rise .7s both;transition:transform .25s,box-shadow .25s}
+.ev:hover{transform:translateY(-5px);box-shadow:0 12px 30px -12px var(--c)}
+.ev b{display:block;color:var(--tx);font-size:15px}.ev i{font-style:normal;color:var(--c);font-weight:800}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;padding:10px 0;display:flex;flex-direction:column;gap:8px;background:linear-gradient(var(--bg) 70%,transparent)}
+.row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;align-items:center}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--mut);padding:7px 13px;border-radius:99px;font-size:13px;cursor:pointer;transition:all .2s}
+.chip:hover{transform:translateY(-2px);color:var(--tx)}.chip.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 6px 16px -6px var(--blue)}
+input,select,textarea{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:10px 12px;font:inherit;font-size:15px;width:100%;transition:border .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,140,255,.25)}
+.day{margin:20px 0 8px;font-weight:800;font-size:13px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.day:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.t{background:var(--glass);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:16px;padding:14px;margin-bottom:10px;opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s,box-shadow .25s}
+.t.in{opacity:1;transform:none}.t.in:hover{transform:translateY(-4px);box-shadow:0 14px 34px -16px var(--c)}
+.t.done{opacity:.55!important}.t.pop{animation:pop .6s}
+@keyframes pop{40%{transform:scale(1.03);box-shadow:0 0 0 6px rgba(46,207,143,.3)}}
+.top{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11px;font-weight:700}
+.tag{padding:3px 9px;border-radius:99px;background:rgba(127,140,180,.16);color:var(--mut)}.tag.c{background:var(--c);color:#fff}
+.t h3{margin:8px 0 4px;font-size:16px}.t p{margin:0;color:var(--mut);font-size:13px;white-space:pre-wrap}
+.time{margin-top:8px;font-size:13px;font-weight:600}.time a{color:var(--blue)}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap}
+.who{font-size:13px;color:var(--ok);font-weight:700}
+.btn{border:0;border-radius:11px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;background:var(--blue);color:#fff;transition:transform .15s,filter .2s}
+.btn:hover{filter:brightness(1.15);transform:translateY(-2px)}.btn:active{transform:scale(.94)}
+.btn.g{background:rgba(127,140,180,.2);color:var(--tx)}.btn.ok{background:var(--ok);color:#04150e}.btn.r{background:#e5484d}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:8;width:58px;height:58px;border-radius:50%;font-size:30px;border:0;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--blue),#7a5cff);box-shadow:0 10px 30px -8px var(--blue);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(3,6,14,.7);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
+.modal.open{display:flex;animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.sheet{width:100%;max-width:520px;max-height:92%;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:24px 24px 0 0;padding:18px;animation:slide .35s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes slide{from{transform:translateY(100%)}}
+@media(min-width:600px){.modal{align-items:center}.sheet{border-radius:24px}}
+.sheet h2{margin:0 0 12px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+label{display:block;font-size:11px;font-weight:700;color:var(--mut);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.06em}
+.acts{display:flex;gap:8px;margin-top:16px}.acts .btn{flex:1;padding:12px}
+.empty{text-align:center;padding:40px 10px;color:var(--mut)}
+.note{color:var(--mut);font-size:12px;margin:14px 0 80px}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media(max-width:520px){.events{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.t{opacity:1;transform:none}}
+</style></head><body>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<canvas id="cv"></canvas>
+<div class="wrap">
+<div class="hero"><small>GLOBAL ENTREPRENEURSHIP WEEK · SRI LANKA</small><h1>Campaign Studio</h1>
+<p>Claim a post, shoot it or design it, publish inside your window. Short videos and graphics alternate. Add or edit anything with the + button.</p>
+<div class="hrow"><svg class="ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(127,140,180,.25)" stroke-width="9"/><circle id="rg" cx="50" cy="50" r="42" fill="none" stroke="url(#gr)" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)" style="transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#2f8cff"/><stop offset="1" stop-color="#f2b84b"/></linearGradient></defs><text id="rt" x="50" y="57" text-anchor="middle">0%</text></svg>
+<div class="stats"><div class="stat"><b id="sD">0</b><span>days to launch</span></div><div class="stat"><b id="sO">0</b><span>open</span></div><div class="stat"><b id="sC">0</b><span>claimed</span></div><div class="stat"><b id="sX">0</b><span>done</span></div></div></div></div>
+<div class="events" id="ev"></div>
+<div class="bar"><input id="nm" placeholder="Your name (used when you claim)" maxlength="30">
+<div class="row" id="f1"></div><div class="row" id="f2"></div></div>
+<div id="list"></div>
+<div class="note">Event dates are placeholders (Launch Nov 16, Expo Nov 19–20, Marathon Nov 22). Times are Sri Lanka time. Everyone with the link can claim, add, edit and delete posts.</div>
+</div>
+<button class="fab" id="add" title="Add post">+</button>
+<div class="modal" id="md"><div class="sheet">
+<h2 id="mh">New post</h2>
+<label>Title</label><input id="eT" maxlength="90">
+<div class="g2"><div><label>Track</label><select id="eK"><option>Launch</option><option>Expo</option><option>Marathon</option><option>Movement</option></select></div>
+<div><label>Format</label><select id="eF"><option>Short video</option><option>Graphic</option><option>Carousel</option><option>Podcast</option><option>Story</option></select></div></div>
+<label>Date</label><input id="eD" type="date">
+<div class="g3"><div><label>Start</label><input id="eS" type="time"></div><div><label>End</label><input id="eE" type="time"></div><div><label>Post at</label><input id="eP" type="time"></div></div>
+<label>Brief / caption notes</label><textarea id="eB" rows="4"></textarea>
+<label>Link (Drive, Canva, final post)</label><input id="eL" placeholder="https://">
+<div class="acts"><button class="btn g" id="eX">Cancel</button><button class="btn r" id="eR" style="display:none">Delete</button><button class="btn" id="eV">Save</button></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+<script>
+/* ====== CONFIG: paste your Supabase values here (see README.md) ====== */
+var SUPABASE_URL="https://jiceryuwkotuzpihanqd.supabase.co/rest/v1/";      // e.g. https://abcdxyz.supabase.co
+var SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppY2VyeXV3a290dXpwaWhhbnFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2MjgxMjYsImV4cCI6MjEwNzIwNDEyNn0.KSkvOrdtEiS_YoYe-UUOdpA_IOV8ZLtaHrg06Ywi0G8"; // the "anon public" key (never the service_role key)
+/* If left empty, the site still works but saves only in this browser. */
+(function(){
+var uid;try{uid=localStorage.getItem("gewUid");if(!uid){uid="u"+Math.random().toString(36).slice(2);localStorage.setItem("gewUid",uid)}}catch(e){uid="u0"}
+var user={id:function(){return Promise.resolve(uid)}},db;
+if(SUPABASE_URL&&SUPABASE_ANON_KEY&&window.supabase){
+ var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ db={doc:function(p){var id=p.split("/")[1];return{
+  set:function(d){return sb.from("posts").upsert({id:id,data:d})},
+  update:async function(d){var r=await sb.from("posts").select("data").eq("id",id).maybeSingle();return sb.from("posts").upsert({id:id,data:Object.assign({},r.data&&r.data.data,d)})},
+  delete:function(){return sb.from("posts").delete().eq("id",id)}}},
+  collection:function(){return{onSnapshot:function(f){
+   var push=async function(){var r=await sb.from("posts").select("*");f({docs:(r.data||[]).map(function(x){return{id:x.id,data:function(){return JSON.parse(JSON.stringify(x.data))}}})})};
+   push();sb.channel("posts").on("postgres_changes",{event:"*",schema:"public",table:"posts"},push).subscribe();return function(){}}}}};
+}else{
+ var K="gew-posts-v1",subs=[];
+ var load=function(){try{return JSON.parse(localStorage.getItem(K)||"{}")}catch(e){return {}}};
+ var save=function(o){try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}};
+ var snap=function(){var o=load();return{docs:Object.keys(o).map(function(id){return{id:id,exists:true,data:function(){return JSON.parse(JSON.stringify(o[id]))}}})}};
+ var fire=function(){var s=snap();subs.forEach(function(f){f(s)})};
+ db={doc:function(p){var id=p.split("/")[1];return{
+  set:function(d){var o=load();o[id]=d;save(o);fire();return Promise.resolve()},
+  update:function(d){var o=load();o[id]=Object.assign(o[id]||{},d);save(o);fire();return Promise.resolve()},
+  delete:function(){var o=load();delete o[id];save(o);fire();return Promise.resolve()}}},
+  collection:function(){return{onSnapshot:function(f){subs.push(f);setTimeout(function(){f(snap())},0);return function(){}}}}};
+ window.addEventListener("storage",fire);
+}
+window.claude={use:function(n){return Promise.resolve(n==="user"?user:n==="db"?db:null)}};
+})();
+</script>
+<script>
+var EVENTS=[{k:"Launch",d:"2026-11-16",c:"#2f8cff"},{k:"Expo",d:"2026-11-19",c:"#f2b84b"},{k:"Marathon",d:"2026-11-22",c:"#2ecf8f"}];
+var COL={Launch:"#2f8cff",Expo:"#f2b84b",Marathon:"#2ecf8f",Movement:"#b06cff"};
+var TOP={Launch:{V:["Launch countdown teaser reel","Why GEW starts Nov 16 (60s)","Founder: what launch week means"],G:["Save the date: GEW Launch Event","Launch event agenda graphic","Speakers and guests announcement"]},
+Expo:{V:["Expo walkthrough teaser reel","Meet the exhibitors (short)","What to expect at the Expo"],G:["Expo registration push","Exhibitor spotlight card","Expo floor map and timings"]},
+Marathon:{V:["Marathon runner story reel","Why we run for entrepreneurship","Marathon route and start line preview"],G:["Marathon registration push","Marathon kit and route graphic","Run with GEW: sponsor thank-you"]},
+Movement:{V:["Founder story reel (9:16)","60s of Entrepreneurship","Community / UGC clip"],G:["District spotlight","Founder quote card","Partner announcement"]}};
+var ORDER=["Launch","Expo","Marathon","Movement","Launch","Marathon","Expo","Movement"];
+function starter(){var a=[],d0=new Date("2026-10-12T00:00:00");for(var n=0;n<42;n++){var ds=new Date(d0.getTime()+n*864e5).toISOString().slice(0,10),k=ORDER[n%8],v=n%2===0,p=TOP[k][v?"V":"G"];
+a.push({id:"s"+n,date:ds,track:k,fmt:v?"Short video":"Graphic",title:p[Math.floor(n/8)%p.length],start:v?"10:00":"11:00",end:v?"17:00":"15:00",post:v?"18:30":"17:00",link:"",
+brief:v?"9:16, under 45s, hook in first 2s, captions on, end with GEW Sri Lanka CTA + link in bio.":"1080x1350, GEW dark theme, neon blue + gold, one clear CTA and #GEWSriLanka."})}return a}
+var posts=[],me=null,db=null,filt={t:"All",s:"All"},editId=null,seen={},$=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fd(s){return new Date(s+"T00:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})}
+function tm(h){if(!h)return"–";var p=h.split(":"),H=+p[0];return (H%12||12)+":"+p[1]+(H<12?" AM":" PM")}
+function cnt(el,v){var s=+el.textContent||0,t=0,st=(v-s)/18;if(s===v)return;var iv=setInterval(function(){t++;el.textContent=Math.round(s+st*t);if(t>=18){el.textContent=v;clearInterval(iv)}},22)}
+function chips(el,arr,key){el.innerHTML="";arr.forEach(function(v){var b=document.createElement("button");b.className="chip"+(filt[key]===v?" on":"");b.textContent=v;b.onclick=function(){filt[key]=v;draw()};el.appendChild(b)})}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.08});
+function draw(){
+ cnt($("sD"),Math.max(Math.ceil((new Date("2026-11-16T00:00:00")-new Date())/864e5),0));
+ chips($("f1"),["All","Launch","Expo","Marathon","Movement"],"t");chips($("f2"),["All","Open","Mine","Short video","Graphic"],"s");
+ var o=0,c=0,x=0;posts.forEach(function(t){if(!t.by)o++;else if(t.state==="done")x++;else c++});
+ cnt($("sO"),o);cnt($("sC"),c);cnt($("sX"),x);var pc=posts.length?Math.round(x/posts.length*100):0;
+ $("rg").style.strokeDashoffset=264-264*pc/100;$("rt").textContent=pc+"%";
+ var out="",last="",n=0;
+ posts.forEach(function(t){
+  if(filt.t!=="All"&&t.track!==filt.t)return;
+  if(filt.s==="Open"&&t.by)return;if(filt.s==="Mine"&&t.by!==me)return;
+  if((filt.s==="Short video"||filt.s==="Graphic")&&t.fmt!==filt.s)return;
+  if(t.date!==last){out+='<div class="day">'+fd(t.date)+'</div>';last=t.date}
+  var mine=t.by&&t.by===me,acts="";
+  if(!t.by)acts='<button class="btn" data-a="claim" data-i="'+t.id+'">Claim</button> ';
+  else if(mine)acts=(t.state==="done"?"":'<button class="btn ok" data-a="done" data-i="'+t.id+'">Mark done</button> ')+'<button class="btn g" data-a="free" data-i="'+t.id+'">Release</button> ';
+  acts+='<button class="btn g" data-a="edit" data-i="'+t.id+'">Edit</button>';
+  var who=t.by?'<span class="who">'+(t.state==="done"?"✓ Done · ":"Claimed · ")+esc(t.name||"Someone")+'</span>':'<span class="tag">Open</span>';
+  var lk=t.link&&/^https?:\/\//.test(t.link)?' · <a href="'+esc(t.link)+'" target="_blank" rel="noopener">Open link</a>':"";
+  out+='<div class="t'+(t.state==="done"?" done":"")+(seen[t.id]===t.state+t.by||!t.by?"":"")+'" id="p'+t.id+'" style="--c:'+COL[t.track]+';transition-delay:'+Math.min(n++,8)*50+'ms"><div class="top"><span class="tag c">'+esc(t.track)+'</span><span class="tag">'+(t.fmt==="Short video"?"🎬 ":"🖼 ")+esc(t.fmt)+'</span></div><h3>'+esc(t.title)+'</h3>'+(t.brief?'<p>'+esc(t.brief)+'</p>':'')+'<div class="time">Work '+tm(t.start)+' – '+tm(t.end)+' · Post '+tm(t.post)+lk+'</div><div class="foot">'+who+'<span>'+acts+'</span></div></div>'});
+ if(!out){out='<div class="empty"><p>'+(posts.length?"Nothing matches this filter.":"No posts yet.")+'</p>'+(posts.length||!db?"":'<button class="btn" id="seed">Load the starter plan (42 posts)</button>')+'</div>'}
+ $("list").innerHTML=out;document.querySelectorAll(".t").forEach(function(e){io.observe(e)});
+ var sd=$("seed");if(sd)sd.onclick=function(){sd.textContent="Loading…";sd.disabled=true;starter().forEach(function(p){var id=p.id;delete p.id;db.doc("posts/"+id).set(p)})};
+}
+function open_(id){editId=id;var t=posts.filter(function(p){return p.id===id})[0]||{date:new Date().toISOString().slice(0,10),track:"Launch",fmt:"Short video",start:"10:00",end:"17:00",post:"18:30",title:"",brief:"",link:""};
+ $("mh").textContent=id?"Edit post":"New post";$("eT").value=t.title;$("eK").value=t.track;$("eF").value=t.fmt;$("eD").value=t.date;$("eS").value=t.start;$("eE").value=t.end;$("eP").value=t.post;$("eB").value=t.brief||"";$("eL").value=t.link||"";
+ $("eR").style.display=id?"":"none";$("md").classList.add("open")}
+function close_(){$("md").classList.remove("open")}
+$("add").onclick=function(){open_(null)};$("eX").onclick=close_;$("md").onclick=function(e){if(e.target===$("md"))close_()};
+$("eV").onclick=function(){if(!db||!$("eT").value.trim())return $("eT").focus();
+ var d={title:$("eT").value.trim(),track:$("eK").value,fmt:$("eF").value,date:$("eD").value,start:$("eS").value,end:$("eE").value,post:$("eP").value,brief:$("eB").value,link:$("eL").value.trim()};
+ if(editId)db.doc("posts/"+editId).update(d);else db.doc("posts/n"+Date.now()).set(d);close_()};
+$("eR").onclick=function(){if(db&&editId&&confirm("Delete this post for everyone?"))db.doc("posts/"+editId).delete();close_()};
+$("ev").innerHTML=EVENTS.map(function(e,i){return '<div class="ev" style="--c:'+e.c+';animation-delay:'+(i*120)+'ms"><b>'+e.k+'</b><i>'+fd(e.d)+'</i></div>'}).join("");
+try{$("nm").value=localStorage.getItem("gewName")||""}catch(e){}
+$("nm").oninput=function(){try{localStorage.setItem("gewName",$("nm").value)}catch(e){}};
+$("list").onclick=function(e){var b=e.target.closest("button");if(!b||!db||b.id==="seed")return;var id=b.dataset.i,a=b.dataset.a,ref=db.doc("posts/"+id),name=$("nm").value.trim();
+ if(a==="edit")return open_(id);
+ if(a==="claim"){if(!name){$("nm").focus();$("nm").placeholder="Enter your name first";window.scrollTo({top:0});return}ref.update({by:me,name:name,state:"claimed"})}
+ else if(a==="done"){ref.update({state:"done"});boom(e.clientX,e.clientY)}
+ else if(a==="free"){ref.update({by:"",name:"",state:""})}};
+var cv=$("cv"),cx=cv.getContext("2d"),ps=[];
+function boom(x,y){for(var i=0;i<60;i++)ps.push({x:x,y:y,vx:(Math.random()-.5)*10,vy:Math.random()*-9-2,c:["#2f8cff","#f2b84b","#2ecf8f","#b06cff"][i%4],l:70});if(ps.length===60)tick()}
+function tick(){cv.width=innerWidth;cv.height=innerHeight;cx.clearRect(0,0,cv.width,cv.height);ps=ps.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.l--;cx.fillStyle=p.c;cx.fillRect(p.x,p.y,6,6);return p.l>0});if(ps.length)requestAnimationFrame(tick)}
+draw();
+(async function(){try{var u=await claude.use("user"),d=await claude.use("db");if(!u||!d){$("list").insertAdjacentHTML("beforebegin",'<p class="note">Sign in to claim and edit.</p>');return}
+ me=await u.id();db=d;
+ d.collection("posts").onSnapshot(function(s){posts=s.docs.map(function(x){var v=x.data();v.id=x.id;return v});
+  posts.sort(function(a,b){return (a.date+(a.start||"")).localeCompare(b.date+(b.start||""))});draw()},function(){})}catch(e){}})();
+</script></body></html>
