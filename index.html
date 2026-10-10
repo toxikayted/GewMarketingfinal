@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- build 3: polling sync, no websocket -->
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GEW Sri Lanka · Campaign Studio</title>
@@ -106,14 +107,14 @@ var SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 var uid;try{uid=localStorage.getItem("gewUid");if(!uid){uid="u"+Math.random().toString(36).slice(2);localStorage.setItem("gewUid",uid)}}catch(e){uid="u0"}
 var user={id:function(){return Promise.resolve(uid)}},db;
 if(SUPABASE_URL&&SUPABASE_ANON_KEY&&window.supabase){
- var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ var sb=window.supabase.createClient(new URL(SUPABASE_URL.trim()).origin,SUPABASE_ANON_KEY.trim(),{realtime:{params:{eventsPerSecond:1}}});
  db={doc:function(p){var id=p.split("/")[1];return{
   set:function(d){return sb.from("posts").upsert({id:id,data:d})},
   update:async function(d){var r=await sb.from("posts").select("data").eq("id",id).maybeSingle();return sb.from("posts").upsert({id:id,data:Object.assign({},r.data&&r.data.data,d)})},
   delete:function(){return sb.from("posts").delete().eq("id",id)}}},
   collection:function(){return{onSnapshot:function(f){
    var push=async function(){var r=await sb.from("posts").select("*");f({docs:(r.data||[]).map(function(x){return{id:x.id,data:function(){return JSON.parse(JSON.stringify(x.data))}}})})};
-   push();sb.channel("posts").on("postgres_changes",{event:"*",schema:"public",table:"posts"},push).subscribe();return function(){}}}}};
+   push();var iv=setInterval(push,4000);return function(){clearInterval(iv)}}}}};
 }else{
  var K="gew-posts-v1",subs=[];
  var load=function(){try{return JSON.parse(localStorage.getItem(K)||"{}")}catch(e){return {}}};
